@@ -3,7 +3,10 @@ const app = express()
 const mongoose = require('mongoose')  
 const {MONGOURI} = require('./keys')
 const path = require('path')
-                                    
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("*", function(req,res){
+    res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});                                  
 
 mongoose.connect(MONGOURI,{
     useNewUrlParser:true,
@@ -23,10 +26,7 @@ app.use(express.json())
 app.use(require('./routes/auth'))
 app.use(require('./routes/post'))
 app.use(require('./routes/user'))
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", function(req,res){
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+
 const PORT = process.env.PORT || 5000
 
 
