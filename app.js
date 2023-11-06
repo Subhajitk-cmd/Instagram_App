@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT || 5000
 const mongoose = require('mongoose')  
 const {MONGOURI} = require('./keys')
 const path = require('path')
@@ -28,6 +27,8 @@ app.use(express.static(path.join(__dirname, "./client/build")));
 app.get("*", function(req,res){
     res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
+const PORT = process.env.PORT || 5000
+
 
 app.listen(PORT,()=>{
     console.log("listening on port",PORT)
